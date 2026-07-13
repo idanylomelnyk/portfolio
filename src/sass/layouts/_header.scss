@@ -1,0 +1,153 @@
+@use "../utils/variables" as *;
+@use "../utils/mixins" as *;
+
+.header {
+  padding: 24px 0;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  color: var(--color-text);
+  font-size: 40px;
+  font-weight: 600;
+  position: relative;
+
+  &::before {
+    content: "";
+    display: block;
+    width: 32px;
+    height: 32px;
+    background-color: var(--color-decor-primary);
+    border-radius: 50%;
+    position: absolute;
+    top: 4px;
+    left: -4px;
+    z-index: -1;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-decor-secondary);
+    outline-offset: 4px;
+  }
+}
+
+.navigation-list {
+  display: none;
+
+  @include lg {
+    display: flex;
+    gap: 16px;
+  }
+
+  &__link {
+    display: inline-block;
+    padding: 4px;
+    color: var(--color-text);
+    font-size: 18px;
+    position: relative;
+
+    &::after {
+      content: "";
+      display: block;
+      width: 60%;
+      height: 2px;
+      background-color: var(--color-decor-secondary);
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%) scale(0);
+      transition: transform 0.4s ease;
+    }
+
+    &:hover::after {
+      transform: translateX(-50%) scale(1);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-decor-secondary);
+      outline-offset: 2px;
+    }
+  }
+}
+
+.theme-toggle {
+  position: relative;
+
+  &__input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 1;
+  }
+}
+
+.theme-switcher {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 62px;
+  height: 32px;
+  border-radius: 24px;
+  background-color: var(--color-gray-300);
+  padding: 0 6px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.4s ease;
+
+  &::before {
+    content: "";
+    display: block;
+    width: 24px;
+    height: 24px;
+    background-color: var(--color-white);
+    border-radius: 50%;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    transition: transform 0.4s ease;
+  }
+
+  &__icon_light {
+    fill: var(--color-white);
+  }
+
+  &__icon_dark {
+    fill: var(--color-text);
+  }
+}
+
+.theme-toggle__input:checked + .theme-switcher {
+  background-color: var(--color-text);
+}
+
+.theme-toggle__input:focus-visible + .theme-switcher {
+  outline: 2px solid var(--color-decor-secondary);
+  outline-offset: 2px;
+}
+
+.theme-toggle__input:checked + .theme-switcher::before {
+  transform: translateX(28px);
+}
+
+.menu-toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+
+  @include lg {
+    display: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-decor-secondary);
+    outline-offset: 2px;
+  }
+}
